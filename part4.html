@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaospedia Part 4 - Physics Advanced Topics</title>
+<style>
+  :root {
+    --chem:#FF6F61;
+    --phy:#6B5B95;
+    --math:#88B04B;
+    --accent:#F7CAC9;
+    --bg:#E1F5FE;
+    --text:#333;
+  }
+  body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);}
+  nav{display:flex;justify-content:center;background:var(--accent);padding:10px;gap:15px;position:sticky;top:0;z-index:100;}
+  nav a{color:#333;text-decoration:none;font-weight:bold;}
+  nav a:hover{color:#000;}
+  section{padding:20px;}
+  h2{color:var(--phy);}
+  .topic{margin:15px 0;padding:10px;border-radius:8px;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  .meme{color:var(--chem);font-style:italic;cursor:pointer;}
+  .curisaurus{position:fixed;bottom:10px;left:10px;width:100px;transition: transform 0.5s;}
+  .curisaurus-bob{animation:bob 2s infinite alternate;}
+  @keyframes bob {0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Back to Part 1</a>
+  <a href="part2.html">Back to Part 2</a>
+  <a href="part3.html">Back to Part 3</a>
+</nav>
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Dino_icon.svg" alt="Curisaurus" class="curisaurus curisaurus-bob" id="curisaurus">
+<section id="physics">
+  <h2>Physics Advanced Revision</h2>
+  <div class="topic">
+    <h3>Rotational Mechanics</h3>
+    <p>Moment of Inertia: I = Σ mr². Torque τ = Iα. 🔹Meme: "Spin to win!"</p>
+    <p>Curiosity: Gyroscopes stabilize ships, planes, and smartphones.</p>
+  </div>
+  <div class="topic">
+    <h3>Thermodynamics</h3>
+    <p>Laws of thermodynamics. ΔU = Q - W. 🔹Meme: "Heat it, feel it!"</p>
+    <p>Curiosity: Refrigerators and heat engines use these principles daily.</p>
+  </div>
+  <div class="topic">
+    <h3>Electrostatics</h3>
+    <p>Coulomb's law: F = k q1 q2 / r². Electric field: E = F/q. 🔹Meme: "Charge it up!"</p>
+    <p>Curiosity: Electrostatics used in printers, photocopiers, and air purifiers.</p>
+  </div>
+  <div class="topic">
+    <h3>Oscillations & Waves</h3>
+    <p>SHM: x = A cos(ωt + φ). Energy conserved: E = 1/2 k A². 🔹Meme: "Oscillate like you mean it!"</p>
+    <p>Curiosity: Musical instruments & bridges rely on wave mechanics.</p>
+  </div>
+  <div class="topic">
+    <h3>Electromagnetism</h3>
+    <p>Maxwell's equations, Faraday's law, Lenz's law. 🔹Meme: "Magnetic vibes only"</p>
+    <p>Curiosity: Motors, generators, and MRI machines.</p>
+  </div>
+</section>
+<script>
+// Curisaurus points to Physics section on scroll
+const dino = document.getElementById('curisaurus');
+window.addEventListener('scroll',()=>{
+  const top = window.scrollY;
+  if(top<50){dino.style.transform='rotate(0deg)';}
+  else if(top<600){dino.style.transform='rotate(10deg)';}
+  else{dino.style.transform='rotate(-10deg)';}
+});
+</script>
+</body>
+</html>
