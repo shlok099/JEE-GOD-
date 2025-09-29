@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaospedia Part 3 - Organic Chemistry</title>
+<style>
+  :root {
+    --chem:#FF6F61;
+    --phy:#6B5B95;
+    --math:#88B04B;
+    --accent:#F7CAC9;
+    --bg:#FFF5E1;
+    --text:#333;
+  }
+  body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);}
+  nav{display:flex;justify-content:center;background:var(--accent);padding:10px;gap:15px;position:sticky;top:0;z-index:100;}
+  nav a{color:#333;text-decoration:none;font-weight:bold;}
+  nav a:hover{color:#000;}
+  section{padding:20px;}
+  h2{color:var(--chem);}
+  .topic{margin:15px 0;padding:10px;border-radius:8px;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  .meme{color:var(--phy);font-style:italic;cursor:pointer;}
+  .curisaurus{position:fixed;bottom:10px;left:10px;width:100px;transition: transform 0.5s;}
+  .curisaurus-bob{animation:bob 2s infinite alternate;}
+  @keyframes bob {0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Back to Part 1</a>
+  <a href="part2.html">Back to Part 2</a>
+</nav>
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Dino_icon.svg" alt="Curisaurus" class="curisaurus curisaurus-bob" id="curisaurus">
+<section id="organic">
+  <h2>Organic Chemistry Quick Revision</h2>
+  <div class="topic">
+    <h3>Alkanes</h3>
+    <p>General formula: CnH2n+2. Substitution reactions. 🔹Meme: "Saturated with swag!"</p>
+    <p>Curiosity: Alkanes used as fuels in real life, e.g., cooking gas.</p>
+  </div>
+  <div class="topic">
+    <h3>Alkenes</h3>
+    <p>General formula: CnH2n. Addition reactions: H2, X2, HX, H2O. 🔹Meme: "Double bond, double trouble!"</p>
+    <p>Curiosity: Ethylene is used in ripening fruits.</p>
+  </div>
+  <div class="topic">
+    <h3>Alkynes</h3>
+    <p>General formula: CnH2n-2. Acidic H at terminal alkyne. 🔹Meme: "Triple bond = triple fun!"</p>
+    <p>Curiosity: Acetylene in welding torches.</p>
+  </div>
+  <div class="topic">
+    <h3>Aromatic Compounds</h3>
+    <p>Benzene, resonance stabilized. 🔹Meme: "Ring of happiness!"</p>
+    <p>Curiosity: Benzene derivatives in dyes and drugs.</p>
+  </div>
+  <div class="topic">
+    <h3>Alcohols, Phenols, Ethers</h3>
+    <p>-OH functional group, acidity order: Phenol > Alcohol. 🔹Meme: "OH yeah!"</p>
+    <p>Curiosity: Ethanol in beverages and fuel.</p>
+  </div>
+  <div class="topic">
+    <h3>Carbonyl Compounds</h3>
+    <p>Aldehydes & Ketones. Nucleophilic addition. 🔹Meme: "C=O: Serious business"</p>
+    <p>Curiosity: Formaldehyde in preservation and industry.</p>
+  </div>
+  <div class="topic">
+    <h3>Amines</h3>
+    <p>Basicity order: Tertiary < Secondary < Primary. 🔹Meme: "Amine time!"</p>
+    <p>Curiosity: Aniline in dye manufacturing.</p>
+  </div>
+  <div class="topic">
+    <h3>Carboxylic Acids</h3>
+    <p>Acidity: R-COOH. Reactions: Esterification, Reduction. 🔹Meme: "COOH yeah!"</p>
+    <p>Curiosity: Vinegar is acetic acid.</p>
+  </div>
+</section>
+<script>
+// Curisaurus points to Organic section on page load
+const dino = document.getElementById('curisaurus');
+dino.style.transform = 'rotate(0deg)'; // facing default
+window.addEventListener('scroll',()=>{
+  const top = window.scrollY;
+  if(top < 50){dino.style.transform='rotate(0deg)';}
+  else if(top>50){dino.style.transform='rotate(15deg)';}
+});
+</script>
+</body>
+</html>
