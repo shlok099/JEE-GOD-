@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaospedia Part 6 - Ultimate Revision Hub</title>
+<style>
+  :root {
+    --chem:#FF6F61;
+    --phy:#6B5B95;
+    --math:#88B04B;
+    --accent:#F7CAC9;
+    --bg:#FFF0F5;
+    --text:#333;
+  }
+  body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);}
+  nav{display:flex;justify-content:center;background:var(--accent);padding:10px;gap:15px;position:sticky;top:0;z-index:100;}
+  nav a{color:#333;text-decoration:none;font-weight:bold;}
+  nav a:hover{color:#000;}
+  section{padding:20px;}
+  h2{color:var(--chem);}
+  .topic{margin:15px 0;padding:10px;border-radius:8px;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  .curisaurus{position:fixed;bottom:10px;left:10px;width:100px;transition: transform 0.5s;}
+  .curisaurus-bob{animation:bob 2s infinite alternate;}
+  @keyframes bob {0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+  .flashcard{width:200px;height:120px;background:#fff;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;margin:10px;cursor:pointer;transition:transform 0.3s;}
+  .flashcard.flipped{transform:rotateY(180deg);}
+  .flashcard-container{display:flex;flex-wrap:wrap;}
+  button#planner-btn{margin:15px;padding:10px 20px;background:var(--phy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;}
+  button#planner-btn:hover{background:#5a497e;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Part 1</a>
+  <a href="part2.html">Part 2</a>
+  <a href="part3.html">Part 3</a>
+  <a href="part4.html">Part 4</a>
+  <a href="part5.html">Part 5</a>
+</nav>
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Dino_icon.svg" alt="Curisaurus" class="curisaurus curisaurus-bob" id="curisaurus">
+<section id="ultimate">
+  <h2>Ultimate Revision Hub</h2>
+  <div class="topic">
+    <h3>Hidden Tricks & Easter Eggs</h3>
+    <p>Click on Curisaurus for random fun facts! 🔹Meme: "Brains & memes combined!"</p>
+  </div>
+  <div class="topic">
+    <h3>Flashcards</h3>
+    <div class="flashcard-container" id="flashcards">
+      <!-- Flashcards will be generated here -->
+    </div>
+  </div>
+  <div class="topic">
+    <h3>Random Daily Planner</h3>
+    <button id="planner-btn">Generate Random Study Plan</button>
+    <ul id="planner-output"></ul>
+  </div>
+</section>
+<script>
+// Curisaurus bobbing animation already in CSS
+const dino = document.getElementById('curisaurus');
+window.addEventListener('scroll',()=>{
+  const top = window.scrollY;
+  dino.style.transform = `rotate(${Math.sin(top/100)*15}deg)`;
+});
+
+// Flashcards Data
+const flashcardData=[
+  {q:"C6H6?", a:"Benzene - Aromatic, Resonance"},
+  {q:"F=ma?", a:"Newton's 2nd Law"},
+  {q:"d/dx x^2?", a:"2x - Calculus"},
+  {q:"E=kq/r^2?", a:"Electrostatics"},
+  {q:"Alkanes Formula?", a:"CnH2n+2"}
+];
+
+const container = document.getElementById('flashcards');
+flashcardData.forEach(item=>{
+  const card = document.createElement('div');
+  card.className='flashcard';
+  card.innerHTML=`<div class='front'>${item.q}</div><div class='back'>${item.a}</div>`;
+  card.addEventListener('click',()=>{card.classList.toggle('flipped');});
+  container.appendChild(card);
+});
+
+// Planner Generator
+const plannerBtn = document.getElementById('planner-btn');
+const plannerOutput = document.getElementById('planner-output');
+const topics=[
+  'Physical Chemistry', 'Organic Chemistry', 'Inorganic Chemistry',
+  'Rotational Mechanics', 'Electrostatics', 'Calculus', 'Vectors & 3D Geometry',
+  'Probability', 'Sequences & Series', 'Coordinate Geometry'
+];
+plannerBtn.addEventListener('click',()=>{
+  plannerOutput.innerHTML='';
+  const shuffled = topics.sort(()=>0.5-Math.random());
+  shuffled.slice(0,5).forEach(t=>{
+    const li=document.createElement('li');
+    li.textContent=t;
+    plannerOutput.appendChild(li);
+  });
+});
+
+// Easter Egg: click Curisaurus
+dino.addEventListener('click',()=>{alert('Curisaurus says: Study smart, memes harder!');});
+</script>
+</body>
+</html>
