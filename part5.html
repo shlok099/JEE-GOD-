@@ -82,11 +82,16 @@ window.addEventListener('scroll',()=>{
 // Desmos Beauty Button
 function openDesmos(){
   const equations = [
-    "y=x^2","y=sin(x)","y=cos(x)","y=tan(x)","y=e^x","y=log(x)","y=x^3-6x^2+9x"
+    "y = x^2",
+    "y = sin(x)",
+    "y = cos(x)",
+    "y = e^x",
+    "y = log(x)",
+    "y = x^3 - 6x^2 + 9x"
   ];
-  const desmosURL = "https://www.desmos.com/calculator?lang=en#";
-  const encoded = equations.map(eq => encodeURIComponent(eq)).join(",");
-  window.open(desmosURL + encoded,"_blank");
+  const params = equations.map(eq => 'expr=' + encodeURIComponent(eq)).join('&');
+  const desmosURL = "https://www.desmos.com/calculator?" + params;
+  window.open(desmosURL, '_blank');
 }
 </script>
 </body>
