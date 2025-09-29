@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaospedia Part 5 - Maths Advanced</title>
+<style>
+  :root {
+    --chem:#FF6F61;
+    --phy:#6B5B95;
+    --math:#88B04B;
+    --accent:#F7CAC9;
+    --bg:#F0FFF0;
+    --text:#333;
+  }
+  body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);}
+  nav{display:flex;justify-content:center;background:var(--accent);padding:10px;gap:15px;position:sticky;top:0;z-index:100;}
+  nav a{color:#333;text-decoration:none;font-weight:bold;}
+  nav a:hover{color:#000;}
+  section{padding:20px;}
+  h2{color:var(--math);}
+  .topic{margin:15px 0;padding:10px;border-radius:8px;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  .meme{color:var(--phy);font-style:italic;cursor:pointer;}
+  .curisaurus{position:fixed;bottom:10px;left:10px;width:100px;transition: transform 0.5s;}
+  .curisaurus-bob{animation:bob 2s infinite alternate;}
+  @keyframes bob {0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+  button.beauty-btn{margin-top:15px;padding:10px 20px;background:var(--math);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;}
+  button.beauty-btn:hover{background:#6fa84a;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Back to Part 1</a>
+  <a href="part2.html">Back to Part 2</a>
+  <a href="part3.html">Back to Part 3</a>
+  <a href="part4.html">Back to Part 4</a>
+</nav>
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Dino_icon.svg" alt="Curisaurus" class="curisaurus curisaurus-bob" id="curisaurus">
+<section id="maths">
+  <h2>Mathematics Advanced Revision</h2>
+
+  <div class="topic">
+    <h3>Algebra</h3>
+    <p>Complex Numbers, Quadratic Equations, Sequences & Series 🔹Meme: "x + iy = extraordinary!"</p>
+  </div>
+  
+  <div class="topic">
+    <h3>Calculus</h3>
+    <p>Differentiation, Integration, Limits, Maxima & Minima 🔹Meme: "d/dx = fun!"</p>
+  </div>
+  
+  <div class="topic">
+    <h3>Coordinate Geometry</h3>
+    <p>Circles, Parabolas, Ellipses, Hyperbolas 🔹Meme: "Shapes everywhere!"</p>
+  </div>
+  
+  <div class="topic">
+    <h3>Vectors & 3D Geometry</h3>
+    <p>Vector addition, Dot & Cross Product, Planes & Lines 🔹Meme: "3D is the new 2D!"</p>
+  </div>
+  
+  <div class="topic">
+    <h3>Probability & Statistics</h3>
+    <p>Conditional probability, Bayes Theorem, Mean, Variance 🔹Meme: "Random but logical!"</p>
+  </div>
+
+  <button class="beauty-btn" onclick="openDesmos()">Beauty</button>
+</section>
+
+<script>
+// Curisaurus scroll interaction
+const dino = document.getElementById('curisaurus');
+window.addEventListener('scroll',()=>{
+  const top = window.scrollY;
+  if(top<50){dino.style.transform='rotate(0deg)';}
+  else if(top<600){dino.style.transform='rotate(10deg)';}
+  else{dino.style.transform='rotate(-10deg)';}
+});
+
+// Desmos Beauty Button
+function openDesmos(){
+  const equations = [
+    "y=x^2","y=sin(x)","y=cos(x)","y=tan(x)","y=e^x","y=log(x)","y=x^3-6x^2+9x"
+  ];
+  const desmosURL = "https://www.desmos.com/calculator?lang=en#";
+  const encoded = equations.map(eq => encodeURIComponent(eq)).join(",");
+  window.open(desmosURL + encoded,"_blank");
+}
+</script>
+</body>
+</html>
