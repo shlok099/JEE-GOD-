@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Padhle Bhai — Chaospedia (Part 2: Subpages & Curisaurus)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4fbff; --card:#ffffff; --chem:#2b7a78; --phy:#114b5f; --math:#f6aa1c; --accent:#ef476f; --muted:#6b7280;
+  }
+  *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;color:#05263a}
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#eaf6fb)}
+  header{display:flex;align-items:center;gap:16px;padding:18px 24px}
+  .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--chem),var(--phy));display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:22px}
+  .site-title{font-weight:900;font-size:20px}
+  .tagline{color:var(--muted);font-weight:600}
+  nav{margin-left:auto;display:flex;gap:10px;align-items:center}
+  nav a{display:inline-block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid rgba(5,38,58,0.06);background:transparent;color:#05263a;font-weight:700}
+  main.wrap{max-width:1200px;margin:14px auto;padding:0 18px}
+  .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+  .column{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 8px 18px rgba(6,20,30,0.06)}
+  details{margin-top:8px;border-radius:8px;padding:10px;background:linear-gradient(180deg,rgba(2,6,11,0.01),rgba(2,6,11,0.02))}
+  summary{font-weight:800;cursor:pointer}
+  .muted{color:var(--muted)}
+  .pill{padding:6px 10px;border-radius:999px;font-weight:800}
+  .chem-pill{background:linear-gradient(90deg,var(--chem),#4fb3a1);color:#002926}
+  .phy-pill{background:linear-gradient(90deg,var(--phy),#2c7aa0);color:#e6fbff}
+  .math-pill{background:linear-gradient(90deg,var(--math),#ffc857);color:#2a1f07}
+  .search{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(5,38,58,0.06)}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  .btn-primary{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:800}
+  .btn-secondary{background:transparent;border:1px solid rgba(5,38,58,0.06);padding:8px 12px;border-radius:10px;cursor:pointer}
+  .subpage{display:none}
+  .subpage.active{display:block}
+  .chapter-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .chapter{padding:8px;border-radius:8px;background:linear-gradient(180deg,#fbfeff,#f0fbfb);border:1px solid rgba(2,6,11,0.04)}
+
+  /* Curisaurus styles */
+  .dino{position:fixed;left:18px;bottom:18px;width:120px;height:100px;z-index:9999;transition:transform 800ms cubic-bezier(.2,.9,.2,1),left 800ms, bottom 800ms}
+  .dino .speak{position:absolute;left:120px;bottom:60px;background:rgba(255,255,255,0.95);color:#05263a;padding:8px 10px;border-radius:8px;font-weight:700;box-shadow:0 8px 20px rgba(6,20,30,0.08);opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s}
+  .dino.speaking .speak{opacity:1;transform:translateY(0)}
+  /* simple walking animation for legs & tail */
+  .leg{transform-origin:10px 0px;animation:leg 0.6s infinite ease-in-out}
+  .leg.r{animation-delay:0.3s}
+  @keyframes leg{0%{transform:rotate(8deg)}50%{transform:rotate(-8deg)}100%{transform:rotate(8deg)}}
+
+  /* head tilt when pointing */
+  .head{transform-origin:100% 50%;transition:transform 400ms}
+  .head.point{transform:rotate(-18deg) translateY(-6px)}
+
+  footer{margin-top:18px;text-align:center;color:var(--muted);padding:14px}
+  @media(max-width:980px){.grid{grid-template-columns:1fr}.dino{display:none}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">PB</div>
+    <div>
+      <div class="site-title">Padhle Bhai — Chaospedia</div>
+      <div class="tagline">Part 2 — Subpages, Curisaurus animation & planner</div>
+    </div>
+    <nav>
+      <a href="#home" data-link>Home</a>
+      <a href="#chemistry" data-link>Chemistry</a>
+      <a href="#maths" data-link>Maths</a>
+      <a href="#physics" data-link>Physics</a>
+      <a href="#planner" data-link>Auto planner</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+      <div class="column">
+
+        <!-- Home subpage -->
+        <div id="home" class="subpage active">
+          <h2>Welcome — Part 2</h2>
+          <p class="muted">This part adds full subpages for Chemistry, Maths and Physics (organized by NCERT-style topics), Curisaurus the animated dino that walks and points to sections, and an Auto Planner that generates a random study plan for a chosen day. Use the top nav to jump between subpages. Curisaurus will follow and point to the current section.</p>
+          <div class="controls" style="margin-top:12px">
+            <button class="btn-primary" id="startPlannerNav">Open Planner</button>
+            <button class="btn-secondary" id="bringDino">Call Curisaurus</button>
+          </div>
+        </div>
+
+        <!-- Chemistry subpage (with 3 subsections) -->
+        <div id="chemistry" class="subpage" data-sub="chemistry">
+          <div class="section-head"><div class="pill chem-pill">Chemistry</div><div style="margin-left:10px" class="muted">Choose a subsection</div></div>
+          <div style="margin-top:10px" class="controls">
+            <button class="btn-secondary" data-show="chem-physical">Physical</button>
+            <button class="btn-secondary" data-show="chem-organic">Organic</button>
+            <button class="btn-secondary" data-show="chem-inorganic">Inorganic</button>
+          </div>
+
+          <div id="chem-physical" class="chapter-list" style="margin-top:12px">
+            <div class="chapter"><strong>Thermodynamics</strong><div class="muted">Topics: Systems, First & Second laws, Entropy, Free energy, Carnot.</div></div>
+            <div class="chapter"><strong>Equilibrium</strong><div class="muted">Kc, Kp, Le Chatelier, van't Hoff relation.</div></div>
+            <div class="chapter"><strong>Kinetics</strong><div class="muted">Rate laws, mechanism, Arrhenius, collision theory, steady-state.</div></div>
+            <div class="chapter"><strong>Electrochemistry</strong><div class="muted">Nernst eqn, Ecell, concentration cells, overpotentials.</div></div>
+            <div class="chapter"><strong>Surface Chemistry</strong><div class="muted">Adsorption isotherms, catalysis basics.</div></div>
+          </div>
+
+          <div id="chem-organic" class="chapter-list" style="margin-top:12px;display:none">
+            <div class="chapter"><strong>Basics & Mechanisms</strong><div class="muted">Curly arrows, reagents, regio/stereochemistry.</div></div>
+            <div class="chapter"><strong>Hydrocarbons</strong><div class="muted">Alkenes, alkynes, aromaticity, resonance.</div></div>
+            <div class="chapter"><strong>Functional Groups</strong><div class="muted">Alcohols, ethers, carbonyls, amines, carboxylic acids & derivatives.</div></div>
+            <div class="chapter"><strong>Named Reactions</strong><div class="muted">Aldol, Claisen, Friedel–Crafts, SN1/SN2 patterns.</div></div>
+            <div class="chapter"><strong>Polymers & Biomolecules</strong><div class="muted">Polymerization basics, aminoacids, carbohydrates.</div></div>
+          </div>
+
+          <div id="chem-inorganic" class="chapter-list" style="margin-top:12px;display:none">
+            <div class="chapter"><strong>Periodic Trends</strong><div class="muted">Atomic radii, ionization energy, electron affinity.</div></div>
+            <div class="chapter"><strong>Coordination Chemistry</strong><div class="muted">Ligand field, CF splitting, stability, isomerism.</div></div>
+            <div class="chapter"><strong>Metallurgy & Extraction</strong><div class="muted">Ore types, refining basics.</div></div>
+            <div class="chapter"><strong>Organic-inorganic overlap</strong><div class="muted">Catalysis, organometallic snippets.</div></div>
+          </div>
+        </div>
+
+        <!-- Maths subpage -->
+        <div id="maths" class="subpage" data-sub="maths">
+          <div class="section-head"><div class="pill math-pill">Mathematics</div><div style="margin-left:10px" class="muted">Core: Algebra, Calculus, Complex, ODEs, Vectors</div></div>
+          <div style="margin-top:10px" class="chapter-list">
+            <div class="chapter"><strong>Algebra</strong><div class="muted">Equations, inequalities, sequences & series, binomial theorem.</div></div>
+            <div class="chapter"><strong>Calculus</strong><div class="muted">Limits, continuity, differentiation, integration, improper integrals.</div></div>
+            <div class="chapter"><strong>Complex & ODEs</strong><div class="muted">De Moivre, residues (intro), Frobenius method for ODEs.</div></div>
+            <div class="chapter"><strong>Probability & Vectors</strong><div class="muted">Combinatorics, distributions, 3D geometry.</div></div>
+          </div>
+        </div>
+
+        <!-- Physics subpage -->
+        <div id="physics" class="subpage" data-sub="physics">
+          <div class="section-head"><div class="pill phy-pill">Physics</div><div style="margin-left:10px" class="muted">Core advanced topics</div></div>
+          <div style="margin-top:10px" class="chapter-list">
+            <div class="chapter"><strong>Mechanics</strong><div class="muted">Kinematics, dynamics, collisions, central force, Lagrangian hints.</div></div>
+            <div class="chapter"><strong>Waves & Optics</strong><div class="muted">Interference, diffraction, ray matrices, thin films, aberrations.</div></div>
+            <div class="chapter"><strong>EM & Circuits</strong><div class="muted">Maxwell, wave eqn, boundary conditions, AC circuits, transient analysis.</div></div>
+            <div class="chapter"><strong>Thermal & Statistical</strong><div class="muted">Laws, entropy, partition functions (intro).</div></div>
+            <div class="chapter"><strong>Modern Physics</strong><div class="muted">Photoelectric, atomic models, semiconductors overview.</div></div>
+          </div>
+        </div>
+
+        <!-- Planner subpage -->
+        <div id="planner" class="subpage" data-sub="planner">
+          <h2>Auto Planner — generate a randomized study plan</h2>
+          <p class="muted">Pick a day (or let the planner choose a random day) and the planner will create a study schedule based on subject weights and syllabus chunks. Each plan is editable and can be copied to clipboard.</p>
+          <div style="margin-top:12px" class="controls">
+            <input type="date" id="planDate" style="padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" />
+            <button class="btn-primary" id="genPlan">Generate Plan</button>
+            <button class="btn-secondary" id="randomDay">Random Day</button>
+          </div>
+          <div id="planOut" style="margin-top:12px"></div>
+        </div>
+
+      </div>
+
+      <aside class="column">
+        <h3 style="margin-top:0">Controls & mini-TOC</h3>
+        <div style="margin-top:8px" class="controls">
+          <button class="btn-secondary" id="showSyllabus">Show NCERT syllabus lists</button>
+          <button class="btn-secondary" id="toggleDinoFollow">Toggle Dino follow</button>
+        </div>
+        <div id="syllabusOut" style="margin-top:12px" class="muted"></div>
+
+        <div style="margin-top:12px" class="card">
+          <strong>Part flow</strong>
+          <p class="muted">This is Part 2 — subpages, Curisaurus, planner. Part 3 will add deep Organic templates and problem walkthroughs. Use the Copy HTML button on header of Part 1 or Part 2 to update GitHub.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <small class="muted">Curisaurus guides you — if you want subpage files instead of single-file routing, I can split into separate .html files for hosting. Tell me which you prefer.</small>
+    </footer>
+  </main>
+
+  <!-- Curisaurus SVG (animated legs + head) -->
+  <div id="curisaurus" class="dino" title="Curisaurus — curious study dino">
+    <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg">
+      <g id="dinoBody">
+        <ellipse cx="70" cy="88" rx="60" ry="34" fill="#7fb77e" stroke="#2f7a46" stroke-width="3"/>
+        <g id="headG" transform="translate(110,50)">
+          <circle cx="28" cy="8" r="20" fill="#7fb77e" stroke="#2f7a46" stroke-width="3" class="head"/>
+          <circle cx="34" cy="4" r="3" fill="#05263a" />
+        </g>
+        <!-- legs -->
+        <g transform="translate(40,112)">
+          <rect x="-6" y="0" width="12" height="18" rx="3" fill="#5f8f64" class="leg" />
+        </g>
+        <g transform="translate(90,112)">
+          <rect x="-6" y="0" width="12" height="18" rx="3" fill="#5f8f64" class="leg r" />
+        </g>
+        <!-- tail -->
+        <path d="M10 85 q-25 -12 -6 -26" fill="none" stroke="#2f7a46" stroke-width="6" stroke-linecap="round"/>
+      </g>
+    </svg>
+    <div class="speak" id="dinoSpeak">Hi — Curisaurus here.</div>
+  </div>
+
+<script>
+  // Simple SPA routing
+  function showSubpage(id){ document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active')); const el=document.getElementById(id); if(el) el.classList.add('active');
+    // move dino to center of active page's top area
+    setTimeout(()=>moveDinoTo(`#${id}`),450);
+  }
+  window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1)||'home'; showSubpage(h); });
+  document.querySelectorAll('a[data-link]').forEach(a=>a.addEventListener('click',e=>{}));
+  // initial route
+  showSubpage(location.hash.slice(1) || 'home');
+
+  // Section buttons for chemistry
+  document.querySelectorAll('[data-show]').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('#chemistry .chapter-list').forEach(c=>c.style.display='none');
+    const id=btn.getAttribute('data-show'); document.getElementById(id).style.display='grid';
+    // show tip
+    speak('Showing ' + id.replace('chem-','') + ' chemistry.');
+  }));
+
+  // Curisaurus logic
+  const dino = document.getElementById('curisaurus');
+  const speakEl = document.getElementById('dinoSpeak');
+  let follow = true;
+  function speak(txt,sec=2200){ speakEl.textContent = txt; dino.classList.add('speaking'); setTimeout(()=>dino.classList.remove('speaking'),sec); }
+
+  function moveDinoTo(selector){
+    try{
+      const target = document.querySelector(selector);
+      if(!target) return; const rect = target.getBoundingClientRect();
+      // target center
+      const cx = rect.left + rect.width/2; const cy = rect.top + rect.height/2;
+      // prefer left area for dino; clamp within viewport
+      const left = Math.min(window.innerWidth - 140, Math.max(8, cx - 80));
+      const bottom = Math.min(window.innerHeight - 60, Math.max(40, window.innerHeight - (rect.top + 40)));
+      dino.style.left = left + 'px'; dino.style.bottom = bottom + 'px';
+      // head point if target in upper half
+      const head = dino.querySelector('.head'); if(rect.top < window.innerHeight/2) head.classList.add('point'); else head.classList.remove('point');
+      // small speak bubble with context label
+      const label = target.querySelector('h2') ? target.querySelector('h2').innerText : (target.querySelector('.pill') ? target.querySelector('.pill').innerText : 'Here');
+      speak('Curisaurus points to: ' + label,1600);
+    }catch(e){ console.error(e); }
+  }
+
+  // buttons
+  document.getElementById('bringDino').addEventListener('click',()=>{ speak('On my way!'); moveDinoTo('#chemistry'); });
+  document.getElementById('startPlannerNav').addEventListener('click',()=>{ location.hash='planner'; });
+  document.getElementById('toggleDinoFollow').addEventListener('click',()=>{ follow = !follow; speak(follow ? 'Following ON' : 'Following OFF'); });
+
+  // planner data pools (sample picks from topics above)
+  const topics = {
+    chemistry: ['Thermodynamics: Carnot & ΔG','Kinetics: Arrhenius & mechanism','Electrochemistry: Nernst problems','Organic: Aldol & Friedel–Crafts','Inorganic: CFT & ligand field'],
+    maths: ['Calculus: definite integrals','Complex: de Moivre roots','ODEs: Frobenius examples','Algebra: inequalities tricks'],
+    physics: ['Collisions & CM frame','Rotational: parallel axis & variable I','EM: boundary condition problems','Optics: thin films & interference']
+  };
+
+  function randomDay(){ const d = new Date(); d.setDate(d.getDate() + Math.floor(Math.random()*14)+1); return d; }
+  document.getElementById('randomDay').addEventListener('click',()=>{ const d=randomDay(); document.getElementById('planDate').valueAsDate = d; });
+
+  document.getElementById('genPlan').addEventListener('click',()=>{
+    const dayInput = document.getElementById('planDate').value; const day = dayInput ? new Date(dayInput) : randomDay();
+    // generate 3 study slots: morning, afternoon, evening; pick subjects weighted randomly
+    const slots = ['08:00-10:00','12:00-14:00','17:00-19:00','20:00-21:00'];
+    const pick = (arr)=> arr[Math.floor(Math.random()*arr.length)];
+    const plan = slots.map((t,i)=>{
+      const subjKey = ['chemistry','physics','maths'][Math.floor(Math.random()*3)];
+      const topic = pick(topics[subjKey]); return {time:t,subject:subjKey,topic};
+    });
+    renderPlan(day,plan);
+  });
+
+  function renderPlan(day,plan){
+    const out = document.getElementById('planOut'); out.innerHTML = '';
+    const h = document.createElement('div'); h.innerHTML = `<h3>Plan for ${day.toDateString()}</h3>`; out.appendChild(h);
+    const ul = document.createElement('div'); ul.style.marginTop='8px';
+    plan.forEach(p=>{
+      const el = document.createElement('div'); el.style.padding='8px'; el.style.marginTop='6px'; el.style.border='1px solid rgba(0,0,0,0.05)'; el.style.borderRadius='8px';
+      el.innerHTML = `<strong>${p.time}</strong> — <em>${p.subject.toUpperCase()}</em>: ${p.topic} <div style="margin-top:6px"><button class='btn-secondary' onclick='copyText("${p.time} - ${p.subject} - ${p.topic}")'>Copy</button></div>`;
+      ul.appendChild(el);
+    });
+    // action buttons
+    const actions = document.createElement('div'); actions.style.marginTop='12px'; actions.innerHTML = `<button class='btn-primary' id='copyPlan'>Copy full plan</button> <button class='btn-secondary' id='savePlan'>Save to local</button>`;
+    out.appendChild(ul); out.appendChild(actions);
+    document.getElementById('copyPlan').addEventListener('click',()=>{
+      const txt = plan.map(p=>`${p.time} | ${p.subject.toUpperCase()} | ${p.topic}`).join('\n'); navigator.clipboard.writeText(txt).then(()=>alert('Plan copied to clipboard'));
+    });
+    document.getElementById('savePlan').addEventListener('click',()=>{
+      localStorage.setItem('lastPlan', JSON.stringify({date:day,plan})); alert('Plan saved locally');
+    });
+  }
+  function copyText(t){ navigator.clipboard.writeText(t).then(()=>alert('Copied')); }
+
+  // syllabus show
+  document.getElementById('showSyllabus').addEventListener('click',()=>{
+    const out = document.getElementById('syllabusOut'); out.innerHTML = '';
+    const chemList = ['Physical: Thermodynamics, Equilibrium, Kinetics, Electrochemistry, Surface chemistry'];
+    const orgList = ['Organic: Principles, Hydrocarbons, Oxygen and nitrogen containing classes, Biomolecules, Polymers'];
+    const inorgList = ['Inorganic: Periodicity, s-block, p-block, d-block basics, Coordination chemistry'];
+    const physList = ['Mechanics, Waves & Optics, E&M, Thermal physics, Modern Physics'];
+    const mathList = ['Algebra, Calculus, Coordinate geometry, Complex numbers, ODEs, Probability'];
+    out.innerHTML = `<strong>Chemistry</strong><br>${chemList.join('<br>')}<hr><strong>Physics</strong><br>${physList.join('<br>')}<hr><strong>Mathematics</strong><br>${mathList.join('<br>')}`;
+  });
+
+  // show subpage on nav clicks
+  document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); const target = a.getAttribute('href').slice(1); location.hash = target; showSubpage(target); }));
+
+  // copy selected text utility
+  document.querySelectorAll('.btn-secondary').forEach(b=>b.addEventListener('click',()=>{}));
+
+  // finish: if user lands on hash, route it
+  if(location.hash) showSubpage(location.hash.slice(1));
+
+  // ensure dino visible after content loads
+  window.addEventListener('load',()=>{ moveDinoTo('#home'); });
+</script>
+</body>
+</html>
